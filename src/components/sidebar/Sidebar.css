@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 
 .main__container {
     display: flex;
@@ -10,10 +11,23 @@
 .sidebar__container {
     position: fixed;
     height: 100vh;
-    width: 11em;
+    width: 13em;
     background-color: #4723D9;
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.sidebar__container__collapsed {
+    position: fixed;
+    height: 100vh;
+    width: 4.1em;
+    background-color: #4723D9;
+    display: flex;
+    justify-content: left;
+    transition: 0.5s;
+    overflow: hidden;
 }
 
 .list__items {
@@ -24,28 +38,98 @@
      justify-content: space-between;
 }
 
-.right__container {
-    margin-left: 11em;
+.right__container__collapsed {
+    margin-left: 13em;
     display: flex;
     flex-direction: column;
+    transition: 0.5s;
+}
+
+.right__container {
+    margin-left: 4.1em;
+    display: flex;
+    flex-direction: column;
+    transition: 0.5s;
 }
 
 .router__links {
     text-decoration: none;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
+    color: rgb(138, 135, 151);
+    font-family: 'Nunito', sans-serif;
     display: flex;
-    padding: 1.3em;
-    font-size: 1em;
+    justify-content: left;
+    padding: 1.3em 1.3em 1.3em 1.5em;
+    font-size: 1rem;
+    transition: .2s;
 }
 
-.router__links > img {
-    height: 1.2em;
-    padding-right: 1em;
+.router__links:hover {
+    color: white;   
+}
+
+.router__links:hover svg{
+    fill: white;
+}
+
+.router__links svg{
+    fill: rgb(138, 135, 151);
+    width: 1.2rem;
+    height: 1.2rem;
+    padding-right: 1.5rem;
+    transition: .2s;
 }
 
 .sidebar__top {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+}
+
+.list__items h4{
+    color: rgb(6, 211, 247);
+    padding: 1.3em 1.3em 1em 1.5em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.sidebar__top:hover {
+    color: white;
+
+}
+
+.active{
+    color: white;
+    font-weight: bold;
+}
+
+.active svg{
+    fill: white;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 3.5em;
+}
+
+.toggleArrow {
+    width: 0.9rem;
+    height: 0.9rem;
+    background-color: rgb(195, 231, 255);
+    border: 1px black;
+    border-radius: 50%;
+    translate: -0.7em;
+    align-self: center;
+    cursor: pointer;
+    padding: 0.2rem;
+    transition: 0.2s;
+}
+
+.toggleArrow:hover {
+    background-color: rgb(6, 211, 247);
+}
+
+.toggleArrow:hover svg {
+    transform: rotate(90);
 }
