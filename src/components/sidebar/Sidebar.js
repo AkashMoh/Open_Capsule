@@ -1,6 +1,11 @@
 import { React, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 
+import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
+import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
+import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
+import { Badge, IconButton } from '@material-ui/core';
+
 import Dashboard from '../dashboard/Dashboard';
 import Products from '../products/Products';
 import Inventory from '../inventory/Inventory';
@@ -74,8 +79,23 @@ function Sidebar() {
 
                 <div className={toggle?'right__container__collapsed':'right__container'}>
                     <div className='navbar'>
-                        <ToggleArrow className='toggleArrow' onClick={() => setToggle(!toggle)}/>
-                        
+
+                        <ToggleArrow className={toggle?'toggleArrow__rotated':'toggleArrow'} onClick={() => setToggle(!toggle)}/>
+                        <div className='navbar__icons'>
+                            <IconButton >
+                                <Badge color="secondary" variant="dot" >
+                                    <NotificationsRoundedIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton>
+                                <Badge color="secondary" variant="dot" >
+                                    <ShoppingCartRoundedIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton>
+                                <PersonRoundedIcon />
+                            </IconButton>
+                        </div>
                     </div>
                     <Switch>
                         <Route exact path="/">
