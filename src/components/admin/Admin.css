@@ -1,0 +1,6 @@
+.centering {
+    display: grid;
+    justify-content:center;
+    background-color: rgb(240, 240, 240);
+    padding: 2em;
+  }

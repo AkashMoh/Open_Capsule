@@ -15,6 +15,7 @@ import Suppliers from '../suppliers/Suppliers';
 import Customers from '../customers/Customers';
 import Reports from '../reports/Reports';
 import Settings from '../settings/Settings';
+import Admin from '../admin/Admin';
 
 import {ReactComponent as DashboardIcon} from '../../icons/dashboard.svg';
 import {ReactComponent as AnalyticsIcon} from '../../icons/analytics.svg';
@@ -29,6 +30,19 @@ import {ReactComponent as SuppliersIcon} from '../../icons/suppliers.svg';
 import {ReactComponent as ToggleArrow} from '../../icons/toggleArrow.svg';
 
 import './Sidebar.css';
+
+//window.ethereum.on('accountsChanged', function (accounts) {isAdmin()} 
+
+async function isAdmin() {
+    
+    const accounts = await window.web3.eth.getAccounts()
+    if(accounts[0] === '0xc50E782E195a864A7f1248a28DD3554cC53AB440'){
+        return(true);
+    }else {
+        return(false)
+    }
+    
+}
 
 function Sidebar() {
 
@@ -70,6 +84,10 @@ function Sidebar() {
                             </li>
                         </div>
                         <div>
+                        
+                            <li>
+                                <NavLink className='router__links' to="/admin"><SettingsIcon />Admin</NavLink>
+                            </li>
                             <li>
                                 <NavLink className='router__links' to="/settings"><SettingsIcon />Settings</NavLink>
                             </li>
@@ -124,6 +142,9 @@ function Sidebar() {
                         </Route>
                         <Route path="/settings">
                             <Settings />
+                        </Route>
+                        <Route path="/admin">
+                            <Admin/>
                         </Route>
                     </Switch>
                 </div>
