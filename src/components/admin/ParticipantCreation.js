@@ -1,10 +1,10 @@
 import { React, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, MenuItem, Typography, } from '@material-ui/core';
+import { Grid, MenuItem, } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import {getAdmin, getParticipant, createParticipant } from '../../web3/openCapsuleContract';
+import {getAdmin, getEvent, getParticipant, createParticipant } from '../../web3/openCapsuleContract';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -169,7 +169,7 @@ export default function ParticipantCreation() {
                             size="medium"
                             color="default"
                             className={classes.margin}
-                            onClick={resetForm}>
+                            onClick={getEvent}>
                         Cancel
                         </Button>
                     </Grid>   
