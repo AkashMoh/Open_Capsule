@@ -1,6 +1,6 @@
 import React from 'react'
 import CreateParticipantAccordion from './CreateParticipantAccordion';
-import ParticipantCard from './CardParticipant';
+import { ParticipantCard } from './CardParticipant';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
     setMargin: {
         marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(-2),
     }
 }));
 

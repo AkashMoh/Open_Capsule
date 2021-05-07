@@ -160,7 +160,18 @@ export default function ParticipantCreation() {
                             color="primary" 
                             className={classes.margin}
                             //onClick={getParticipant}
-                            onClick={() => {createParticipant(formInput.company_name, formInput.wallet_address, formInput.role, formInput.phone, formInput.email, formInput.address, formInput.country, formInput.state)}}
+                            onClick={() => {
+                                createParticipant(
+                                    formInput.company_name, 
+                                    formInput.wallet_address, 
+                                    formInput.role,
+                                    formInput.phone,
+                                    formInput.email, 
+                                    formInput.address, 
+                                    formInput.country, 
+                                    formInput.state, )
+                                }
+                            }
                             >
                         Create
                         </Button>
@@ -169,7 +180,7 @@ export default function ParticipantCreation() {
                             size="medium"
                             color="default"
                             className={classes.margin}
-                            onClick={getEvent}>
+                            onClick={resetForm}>
                         Cancel
                         </Button>
                     </Grid>   

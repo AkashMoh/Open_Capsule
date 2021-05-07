@@ -2,14 +2,16 @@ import Web3 from 'web3';
 import { walletFinder } from './walletFinder.js';
 import { openCapsuleABI } from './abis/openCapsuleABI';
 import { hashGenerator } from '../helpers/hashGenerator';
+import { postParticipants } from '../services/participantService';
 
 //Detect wallet address change, accountsChaged is fired by Metamask
 window.ethereum.on('accountsChanged', function (accounts) {
-    currentAddress = walletFinder();
+    currentAddress = accounts[0];
+    //console.log(accounts[0])
 })
 
 //Run once at app start or on reload
-let currentAddress = walletFinder();
+var currentAddress = walletFinder();
 
 const web3 = new Web3(Web3.givenProvider);
 //console.log(web3)
@@ -24,13 +26,13 @@ openCapsuleContract.events.participantCreated({}, (error, event) => {
 })
 
 //Get all previous participantCreated events from contract (history)
-openCapsuleContract.getPastEvents('participantCreated', {
-    fromBlock: 0,
-    toBlock: 'latest'
-}, (error, event) => {
-    console.log(event);
-    console.log("It came from getPastEvents")
-})
+// openCapsuleContract.getPastEvents('participantCreated', {
+//     fromBlock: 0,
+//     toBlock: 'latest'
+// }, (error, event) => {
+//     console.log(event);
+//     console.log("It came from getPastEvents")
+// })
 
 //Get all events inside OpenCapsule contract
 const getEvent = async()  => {
@@ -82,13 +84,13 @@ const createParticipant = async(companyName, walletAdress, role, phone, email, a
             from: currentAddress,
         }, (err, res) => {
             //console.log(res);
+            postParticipants(companyName, walletAdress, role, phone, email, address, country, state, hashDetails);
             return(res);
         });
     }
     catch(err){
         console.log(err.code)
         alert(err.message)
-        
     }
 }
 
