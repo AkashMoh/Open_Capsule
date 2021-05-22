@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Purchases() {
+function MarketPlace() {
     return (
         <div>
             <h3>Purchases</h3>
@@ -8,4 +8,4 @@ function Purchases() {
     )
 }
 
-export default Purchases
+export default MarketPlace

@@ -8,10 +8,13 @@ import { postParticipants } from '../services/participantService';
 window.ethereum.on('accountsChanged', function (accounts) {
     currentAddress = accounts[0];
     //console.log(accounts[0])
+    isAdminis = currentAddress === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' ? true : false;
 })
 
 //Run once at app start or on reload
 var currentAddress = walletFinder();
+
+let isAdminis = currentAddress === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' ? true : false;
 
 const web3 = new Web3(Web3.givenProvider);
 //console.log(web3)
@@ -94,4 +97,4 @@ const createParticipant = async(companyName, walletAdress, role, phone, email, a
     }
 }
 
-export { getAdmin, getEvent, getParticipant, createParticipant };
+export { getAdmin, getEvent, getParticipant, createParticipant, isAdminis };

@@ -11,6 +11,7 @@ import ParticipantCreation from './ParticipantCreation';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    elevation: 5,
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -22,7 +23,7 @@ export default function CreateParticipantAccordion() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <React.Fragment className={classes.root}>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -37,6 +38,6 @@ export default function CreateParticipantAccordion() {
 
         </AccordionDetails>
       </Accordion>
-    </div>
+    </React.Fragment>
   );
 }

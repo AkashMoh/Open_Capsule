@@ -16,7 +16,8 @@ async function walletFinder() {
     }
 
     const accounts = await window.web3.eth.getAccounts()
-    console.log(accounts[0]);
+    //console.log(accounts[0]);
+
     return accounts[0];
 
 }

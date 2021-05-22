@@ -63,7 +63,7 @@ function Dashboard() {
                   </Grid>
                   <Grid item xs={2}></Grid>
                   <Grid item xs={5}>
-                  <div>
+                  <React.Fragment>
                     <Button className={classes.button} variant="outlined" size="small" color="primary" onClick={handleClick}>
                       Today
                     </Button>
@@ -78,7 +78,7 @@ function Dashboard() {
                       <MenuItem onClick={handleClose}>Month</MenuItem>
                       <MenuItem onClick={handleClose}>Year</MenuItem>
                     </Menu>
-                  </div>
+                  </React.Fragment>
                   </Grid>
                   <Grid item xs={12}>
                   <Typography variant="h4" gutterBottom="true">

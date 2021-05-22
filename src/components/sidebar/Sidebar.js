@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
@@ -7,46 +7,30 @@ import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import { Badge, IconButton } from '@material-ui/core';
 
 import Dashboard from '../dashboard/Dashboard';
-import Products from '../products/Products';
 import Inventory from '../inventory/Inventory';
-import Purchases from '../purchases/Purchases';
-import Sales from '../sales/Sales';
-import Suppliers from '../suppliers/Suppliers';
-import Customers from '../customers/Customers';
+import MarketPlace from '../marketplace/MarketPlace';
 import Reports from '../reports/Reports';
 import Settings from '../settings/Settings';
 import Admin from '../admin/Admin';
 
 import {ReactComponent as DashboardIcon} from '../../icons/dashboard.svg';
 import {ReactComponent as AnalyticsIcon} from '../../icons/analytics.svg';
-import {ReactComponent as CustomersIcon} from '../../icons/customers.svg';
 import {ReactComponent as InventoryIcon} from '../../icons/inventory.svg';
-import {ReactComponent as ProductsIcon} from '../../icons/products.svg';
 import {ReactComponent as PurchasesIcon} from '../../icons/purchases.svg';
-import {ReactComponent as SalesIcon} from '../../icons/sales.svg';
 import {ReactComponent as SettingsIcon} from '../../icons/settings.svg';
-import {ReactComponent as SuppliersIcon} from '../../icons/suppliers.svg';
 
 import {ReactComponent as ToggleArrow} from '../../icons/toggleArrow.svg';
 
 import './Sidebar.css';
 
-//window.ethereum.on('accountsChanged', function (accounts) {isAdmin()} 
-
-async function isAdmin() {
-    
-    const accounts = await window.web3.eth.getAccounts()
-    if(accounts[0] === '0xc50E782E195a864A7f1248a28DD3554cC53AB440'){
-        return(true);
-    }else {
-        return(false)
-    }
-    
-}
-
 function Sidebar() {
 
     const [toggle, setToggle] = useState(true);
+
+    //window.ethereum.on('accountsChanged', function (accounts) {
+    //    currentAddress = accounts[0];
+    //    //console.log(accounts[0])
+    //})
 
     return (
         <Router>
@@ -62,31 +46,19 @@ function Sidebar() {
                                 <NavLink exact className='router__links' to="/"><DashboardIcon />Dashboard</NavLink> 
                             </li>
                             <li>
-                                <NavLink className='router__links' to="/products"><ProductsIcon />Products</NavLink>
-                            </li>
-                            <li>
                                 <NavLink className='router__links' to="/inventory"><InventoryIcon />Inventory</NavLink>
                             </li>
                             <li>
-                                <NavLink className='router__links' to="/purchases"><PurchasesIcon />Purchases</NavLink>
-                            </li>
-                            <li>
-                                <NavLink className='router__links' to="/sales"><SalesIcon />Sales</NavLink>
-                            </li>
-                            <li>
-                                <NavLink className='router__links' to="/suppliers"><SuppliersIcon />Suppliers</NavLink>
-                            </li>
-                            <li>
-                                <NavLink className='router__links' to="/customers"><CustomersIcon />Customers</NavLink>
+                                <NavLink className='router__links' to="/marketplace"><PurchasesIcon />MarketPlace</NavLink>
                             </li>
                             <li>
                                 <NavLink className='router__links' to="/analytics"><AnalyticsIcon />Analytics</NavLink>
                             </li>
                         </div>
                         <div>
-                        
+
                             <li>
-                                <NavLink className='router__links' to="/admin"><SettingsIcon />Admin</NavLink>
+                                {true && <NavLink className='router__links' to="/admin"><SettingsIcon />Admin</NavLink> }
                             </li>
                             <li>
                                 <NavLink className='router__links' to="/settings"><SettingsIcon />Settings</NavLink>
@@ -119,23 +91,11 @@ function Sidebar() {
                         <Route exact path="/">
                             <Dashboard />
                         </Route>
-                        <Route path="/products">
-                            <Products />
-                        </Route>
                         <Route path="/inventory">
                             <Inventory />
                         </Route>
-                        <Route path="/purchases">
-                            <Purchases />
-                        </Route>
-                        <Route path="/sales">
-                            <Sales />
-                        </Route>
-                        <Route path="/suppliers">
-                            <Suppliers />
-                        </Route>
-                        <Route path="/customers">
-                            <Customers />
+                        <Route path="/marketplace">
+                            <MarketPlace />
                         </Route>
                         <Route path="/analytics">
                             <Reports />
@@ -143,9 +103,9 @@ function Sidebar() {
                         <Route path="/settings">
                             <Settings />
                         </Route>
-                        <Route path="/admin">
-                            <Admin/>
-                        </Route>
+                        { true && <Route path="/admin">
+                            <Admin />
+                        </Route>}
                     </Switch>
                 </div>
         </div>
