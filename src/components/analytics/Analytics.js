@@ -9,16 +9,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Marketplace() {
+function Analytics() {
 
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
-            <h3>MarketPlace</h3>
+            <h3>Analytics</h3>
         </div>
     )
 }
 
-export default Marketplace
+export default Analytics
 

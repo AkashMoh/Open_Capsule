@@ -178,7 +178,7 @@ export default function ParticipantCreation() {
                         <Button 
                             variant="outlined"
                             size="medium"
-                            color="default"
+                            color="primary"
                             className={classes.margin}
                             onClick={resetForm}>
                         Cancel

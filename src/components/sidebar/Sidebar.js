@@ -9,7 +9,7 @@ import { Badge, IconButton } from '@material-ui/core';
 import Dashboard from '../dashboard/Dashboard';
 import Inventory from '../inventory/Inventory';
 import MarketPlace from '../marketplace/MarketPlace';
-import Reports from '../reports/Reports';
+import Analytics from '../analytics/Analytics';
 import Settings from '../settings/Settings';
 import Admin from '../admin/Admin';
 
@@ -98,7 +98,7 @@ function Sidebar() {
                             <MarketPlace />
                         </Route>
                         <Route path="/analytics">
-                            <Reports />
+                            <Analytics />
                         </Route>
                         <Route path="/settings">
                             <Settings />

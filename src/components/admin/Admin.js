@@ -3,7 +3,7 @@ import CreateParticipantAccordion from './CreateParticipantAccordion';
 import { ParticipantCard } from './CardParticipant';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-
+import Paper from '@material-ui/core/Paper'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,13 +24,15 @@ function Admin() {
 
     return (
         <div className={classes.root}>
+            <Paper className={classes.root} variant="outlined">
             
-            <CreateParticipantAccordion />
+                <CreateParticipantAccordion />
+                
+                <Typography className={classes.setMargin} color="textSecondary" variant="h6">Participants </Typography>
+                
+                <ParticipantCard />
             
-            <Typography className={classes.setMargin} color="textSecondary" variant="h6">Participants </Typography>
-            
-            <ParticipantCard />
-            
+            </Paper>
         </div>
     )
 

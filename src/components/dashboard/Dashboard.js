@@ -50,11 +50,13 @@ function Dashboard() {
       
         <Container className={classes.container}>
 
+          <Paper className={classes.container} variant="outlined">
+
           <Typography variant="h4" gutterBottom="true" >Dashboard</Typography>
           
           <Grid container spacing={4}>
             <Grid item xs={6} md={3}>
-              <Paper className={classes.paper} >
+              <Paper className={classes.paper} variant="outlined">
                 <Grid container >
                   <Grid item xs={5}>
                     <Typography variant="h6" gutterBottom="true">
@@ -99,7 +101,7 @@ function Dashboard() {
               </Paper>
             </Grid>
             <Grid item xs={6} md={3}>
-            <Paper className={classes.paper} >
+            <Paper className={classes.paper} variant="outlined">
                 <Grid container >
                   <Grid item xs={5}>
                     <Typography variant="h6" gutterBottom="true">
@@ -144,7 +146,7 @@ function Dashboard() {
               </Paper>
             </Grid>
             <Grid item xs={6} md={3}>
-            <Paper className={classes.paper} >
+            <Paper className={classes.paper} variant="outlined">
                 <Grid container >
                   <Grid item xs={5}>
                     <Typography variant="h6" gutterBottom="true">
@@ -189,7 +191,7 @@ function Dashboard() {
               </Paper>
             </Grid>
             <Grid item xs={6} md={3}>
-            <Paper className={classes.paper} >
+            <Paper className={classes.paper} variant="outlined">
                 <Grid container >
                   <Grid item xs={5}>
                     <Typography variant="h6" gutterBottom="true">
@@ -241,6 +243,8 @@ function Dashboard() {
             </Grid>
 
           </Grid>
+
+          </Paper>
 
         </Container>
              
