@@ -1,9 +1,21 @@
 import axios from  'axios'
 
-const fetchProducts = async() => {
+const fetchProducts = async(address) => {
     try {
-        const response = await axios.get('http://localhost:3001/products/');
-        //console.log(response);
+        console.log("ProductService", address)
+        const response = await axios.get('http://localhost:3001/products', {params: {address: address}});
+        console.log("Response", response);
+        return response.data;
+    } catch(error) {
+        console.error(error);
+    }
+}
+
+const fetchAllProducts = async() => {
+    try {
+        //console.log("ProductService", address)
+        const response = await axios.get('http://localhost:3001/products/allproducts');
+        console.log("Response", response);
         return response.data;
     } catch(error) {
         console.error(error);
@@ -27,4 +39,4 @@ const postProducts = async(company_address, company_name, product_code, product_
     }
 }
 
-export { fetchProducts, postProducts }
+export { fetchProducts, fetchAllProducts, postProducts }

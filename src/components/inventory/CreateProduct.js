@@ -40,7 +40,7 @@ const initialValues = {
     unit_end: "",
 };
 
-function CreateProduct() {
+export default function CreateProduct() {
 
     const classes = useStyles();
     const [open, setOpen] = useState(false);
@@ -113,7 +113,7 @@ function CreateProduct() {
                                     id="outlined-size-small"
                                     value={formInput.company_name}
                                     onChange={handleFormChange}
-                                    name="Company_name"
+                                    name="company_name"
                                     variant="outlined"
                                     size="small" 
                                 />
@@ -183,8 +183,7 @@ function CreateProduct() {
                                                 formInput.product_name,
                                                 formInput.price, 
                                                 formInput.unit_start, 
-                                                formInput.unit_end, 
-                                            )
+                                                formInput.unit_end, )
                                             }
                                         }
                                         >
@@ -210,4 +209,4 @@ function CreateProduct() {
     )
 }
 
-export default CreateProduct
+

@@ -51,7 +51,7 @@ function ParticipantCard() {
       //console.log(company);
       }
     )
-  },[company])
+  },[setCompany])
 
   const companyCards = company.map((comp) => {
     return(
