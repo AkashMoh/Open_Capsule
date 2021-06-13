@@ -105,24 +105,6 @@ export default function CardMarketProducts() {
                      Hash Details: {prod.hash_details}
                    </Typography>
                    <div className={classes.newUnit}>
-                     {/* <TextField 
-                       label="Quantity"
-                       id="outlined-size-small"
-                       value={formInput}
-                       onChange={handleFormChange}
-                       name="company_name"
-                       variant="outlined"
-                       size="small" 
-                     />
-                     <Button 
-                       variant="outlined"
-                       size="medium"
-                       color="primary"
-                       //className={classes.margin}
-                       onClick={() => {console.log(prod.product_name)}}
-                       >
-                       BUY
-                     </Button> */}
                      <PurchaseForm props={prod}/>
                    </div>
                  </CardContent>

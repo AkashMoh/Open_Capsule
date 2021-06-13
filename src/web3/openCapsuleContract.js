@@ -62,17 +62,17 @@ const getAdmin = () => {
 }
 
 //Get participant according to address argument given (currenty hardcoded)
-const getParticipant = () => {
+const getParticipant = async(addresss) => {
     try{
-        openCapsuleContract.methods.participants("0x60F36860c9D108A22383F9450D092486a3FCe8b").call((_err, res) => 
+        return openCapsuleContract.methods.participants(addresss).call((_err, res) => 
             {
-                console.log(res);
+                //console.log(res);
                 return res;
             });
     }
     catch (err) {
         console.log(err);
-        alert(err.message)
+        alert("yep" + err.message)
     }
 }
 
@@ -103,6 +103,7 @@ const createParticipant = async(companyName, walletAdress, role, phone, email, a
 //Create product
 const createProduct = async(companyAddress, companyName, productCode, productName, price, unitStart, unitEnd) => {
     const hashDetails = await(hashGenerator([companyAddress, companyName, productCode, productName, price, unitStart, unitEnd]));
+    console.log(hashDetails)
 
     try{
         openCapsuleContract.methods.createProduct(productCode, productName, price, unitStart, unitEnd, hashDetails).send({
@@ -114,7 +115,7 @@ const createProduct = async(companyAddress, companyName, productCode, productNam
         });
     }
     catch(err){
-        console.log(err.code)
+        //console.log(err.code)
         alert(err.message)
     }
 }

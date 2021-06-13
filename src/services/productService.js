@@ -39,4 +39,15 @@ const postProducts = async(company_address, company_name, product_code, product_
     }
 }
 
-export { fetchProducts, fetchAllProducts, postProducts }
+const updateProducts = async(id, updatedQuantity) => {
+    try{
+        axios.post('http://localhost:3001/products/update', {
+            id: id,
+            updatedQuantity: updatedQuantity,
+        })
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+export { fetchProducts, fetchAllProducts, postProducts, updateProducts }
