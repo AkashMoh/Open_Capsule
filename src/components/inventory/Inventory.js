@@ -25,16 +25,6 @@ function Inventory() {
 
     const classes = useStyles();
 
-    const [currentAddress, setCurrentAddress] = useState(window.web3.currentProvider.selectedAddress);
-
-    console.log(window.web3.currentProvider.selectedAddress)
-    console.log(currentAddress)
-
-    window.ethereum.on('accountsChanged', function (accounts) {
-        setCurrentAddress(accounts[0]);
-        //console.log(accounts[0])
-    })
-
     return (
         <div className={classes.root}>
             <Paper className={classes.root} variant="outlined">
@@ -42,7 +32,7 @@ function Inventory() {
             </Paper>
             <h3>Products</h3>
             <Paper className={classes.container} variant="outlined">
-                <ProductCard currentAddress={currentAddress}/>
+                <ProductCard />
             </Paper>
         </div>
     )

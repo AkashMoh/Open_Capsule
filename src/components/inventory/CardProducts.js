@@ -9,6 +9,7 @@ import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { fetchProducts } from '../../services/productService';
+import { walletFinder } from '../../web3/walletFinder';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,18 +52,25 @@ const useStyles = makeStyles((theme) => ({
 //  console.log(_id)
 //}
 
-function ProductCard(props) {
-  const classes = useStyles();
-  const [products, setProducts] = useState();
+let accountChange = true
+window.ethereum.on('accountsChanged', function (accounts) {
+  accountChange = !accountChange
+})
 
-  useEffect(() => {
-    fetchProducts(String(props.currentAddress)).then(result => {
+function ProductCard() {
+  const classes = useStyles();
+  const [products, setProducts] = useState([]);
+
+
+  useEffect(async() => {
+    let currentAddress = await walletFinder()
+    fetchProducts(currentAddress).then(result => {
       console.log(result)
-      console.log(props.currentAddress)
+      //console.log(props.currentAddress)
       setProducts(result)
       }
     ) 
-  },[]);
+  },[accountChange]);
 
   return(
     <React.Fragment>

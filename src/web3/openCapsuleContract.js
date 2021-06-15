@@ -5,6 +5,7 @@ import { openCapsuleMainABI } from './abis/openCapsuleMainABI';
 import { hashGenerator } from '../helpers/hashGenerator';
 import { postParticipants } from '../services/participantService';
 import { postProducts } from '../services/productService';
+import { postHistory } from '../services/trackingService'
 
 //Detect wallet address change, accountsChaged is fired by Metamask
 window.ethereum.on('accountsChanged', function (accounts) {
@@ -110,6 +111,7 @@ const createProduct = async(companyAddress, companyName, productCode, productNam
             from: currentAddress,
         }, (err, res) => {
             postProducts(companyAddress, companyName, productCode, productName, price, unitStart, unitEnd, hashDetails)
+            postHistory(productName, productCode, companyName, unitStart, unitEnd)
             console.log(res);
             return(res);
         });

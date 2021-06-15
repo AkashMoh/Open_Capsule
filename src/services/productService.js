@@ -11,10 +11,10 @@ const fetchProducts = async(address) => {
     }
 }
 
-const fetchAllProducts = async() => {
+const fetchAllProducts = async(address) => {
     try {
         //console.log("ProductService", address)
-        const response = await axios.get('http://localhost:3001/products/allproducts');
+        const response = await axios.get('http://localhost:3001/products/allproducts', {params: {address: address}});
         console.log("Response", response);
         return response.data;
     } catch(error) {

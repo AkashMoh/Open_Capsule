@@ -1,16 +1,12 @@
 import React,{ useState, useEffect } from 'react'
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import { fetchAllProducts } from '../../services/productService';
-import { createProduct } from '../../web3/openCapsuleContract';
 import PurchaseForm from './PurchaseForm'
+import { walletFinder } from '../../web3/walletFinder'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,48 +33,29 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
-  controls: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingBottom: theme.spacing(3),
-  },
-  playIcon: {
-    height: 12,
-    width: 12,
-  },
+  
 }));
 
-//const cardClick = (_id) => {
-//  console.log(_id)
-//}
+let currentAddress = walletFinder()
 
 export default function CardMarketProducts() {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    fetchAllProducts().then(result => {
-      console.log(result)
+  useEffect(async() => {
+    let currentAddress = await walletFinder()
+    fetchAllProducts(currentAddress).then(result => {
+      console.log("marketData"+result)
       //console.log(props.currentAddress)
       setProducts(result)
       }
     ) 
   },[]); 
 
-  // const [formInput, setFormInput] = useState("");
-
-  // const handleFormChange = (event) => {
-
-  //   const { name, value } = event.target;
-  //   setFormInput({...formInput, [name]: value,});
-
-  //   };
-
   return(
       <React.Fragment>
           {products? products.map(prod => {
+              
               return <div key={prod._id}>
                 <Card className={classes.root} variant="outlined">
             
@@ -109,7 +86,7 @@ export default function CardMarketProducts() {
                    </div>
                  </CardContent>
          </Card>
-       </div>
+       </div> 
           }): <CircularProgress />}
       </React.Fragment>
   )  
