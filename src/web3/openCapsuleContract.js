@@ -8,11 +8,11 @@ import { postProducts } from '../services/productService';
 import { postHistory } from '../services/trackingService'
 
 //Detect wallet address change, accountsChaged is fired by Metamask
-window.ethereum.on('accountsChanged', function (accounts) {
+/*window.ethereum.on('accountsChanged', function (accounts) {
     currentAddress = accounts[0];
     //console.log(accounts[0])
     isAdminis = currentAddress === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' ? true : false;
-})
+}) */
 
 //Run once at app start or on reload
 var currentAddress = walletFinder();

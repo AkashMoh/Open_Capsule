@@ -3,7 +3,7 @@ import axios from  'axios'
 const fetchHistory = async(productCode, productId) => {
     try {
         //console.log("Tracking Service", productCode, productId)
-        const response = await axios.get('http://localhost:3001/history', {params: {product_code: productCode}});
+        const response = await axios.get('https://opencaps-backend.herokuapp.com/history', {params: {product_code: productCode}});
         //console.log("Response", response);
         return response.data;
     } catch(error) {
@@ -32,7 +32,7 @@ const postHistory = async(product_name, product_code, company_name, unit_start, 
     let time = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
     
     try {
-        axios.post('http://localhost:3001/history', {
+        axios.post('https://opencaps-backend.herokuapp.com/history', {
             time: time,
             product_name: product_name,
             product_code: product_code,

@@ -3,7 +3,7 @@ import axios from  'axios'
 const fetchProducts = async(address) => {
     try {
         console.log("ProductService", address)
-        const response = await axios.get('http://localhost:3001/products', {params: {address: address}});
+        const response = await axios.get('https://opencaps-backend.herokuapp.com/products', {params: {address: address}});
         console.log("Response", response);
         return response.data;
     } catch(error) {
@@ -14,7 +14,7 @@ const fetchProducts = async(address) => {
 const fetchAllProducts = async(address) => {
     try {
         //console.log("ProductService", address)
-        const response = await axios.get('http://localhost:3001/products/allproducts', {params: {address: address}});
+        const response = await axios.get('https://opencaps-backend.herokuapp.com/products/allproducts', {params: {address: address}});
         console.log("Response", response);
         return response.data;
     } catch(error) {
@@ -24,7 +24,7 @@ const fetchAllProducts = async(address) => {
 
 const postProducts = async(company_address, company_name, product_code, product_name, price, unit_start, unit_end, hash_details) => {
     try {
-        axios.post('http://localhost:3001/products/', {
+        axios.post('https://opencaps-backend.herokuapp.com/products/', {
             company_address: company_address,
             company_name: company_name, 
             product_code: product_code,
@@ -41,7 +41,7 @@ const postProducts = async(company_address, company_name, product_code, product_
 
 const updateProducts = async(id, updatedQuantity) => {
     try{
-        axios.post('http://localhost:3001/products/update', {
+        axios.post('https://opencaps-backend.herokuapp.com/products/update', {
             id: id,
             updatedQuantity: updatedQuantity,
         })

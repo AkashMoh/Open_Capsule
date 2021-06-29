@@ -11,7 +11,7 @@ import axios from  'axios'
 
 const fetchParticipants = async() => {
     try {
-        const response = await axios.get('http://localhost:3001/participants/');
+        const response = await axios.get('https://opencaps-backend.herokuapp.com/participants/');
         //console.log(response.data);
         return response.data;
     } catch(error) {
@@ -21,7 +21,7 @@ const fetchParticipants = async() => {
 
 const postParticipants = async(company_name, wallet_address, role, phone, email, address, country, state, hash_details) => {
     try {
-        axios.post('http://localhost:3001/participants/', {
+        axios.post('https://opencaps-backend.herokuapp.com/participants/', {
             company_name: company_name, 
             wallet_address: wallet_address, 
             role: role,
