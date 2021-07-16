@@ -1,4 +1,4 @@
-import  {React, useState } from 'react'
+import  {React, useState, useContext } from 'react'
 import Button from '@material-ui/core/Button';
 import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import { Grid } from '@material-ui/core';
 import { createProduct } from '../../web3/openCapsuleContract';
+
+import { AddressContext } from '../sidebar/Sidebar'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const initialValues = {
-    company_address: "",
     company_name: "",
     product_code: "",
     product_name: "",
@@ -44,6 +45,8 @@ export default function CreateProduct() {
 
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+
+    const addressGlobal = useContext(AddressContext)
 
     const handleOpen = () => {
         setOpen(true);
@@ -99,15 +102,6 @@ export default function CreateProduct() {
                             <Grid container>
                                 <Grid item sm={12} align="center" >
                             
-                                <TextField 
-                                    label="Company address"
-                                    id="outlined-size-small"
-                                    value={formInput.company_address}
-                                    onChange={handleFormChange}
-                                    name="company_address"
-                                    variant="outlined"
-                                    size="small" 
-                                />
                                 <TextField 
                                     label="Company Name"
                                     id="outlined-size-small"
@@ -176,8 +170,9 @@ export default function CreateProduct() {
                                         className={classes.margin}
                                         //onClick={getParticipant}
                                         onClick={() => {
+                                            console.log(addressGlobal)
                                             createProduct(
-                                                formInput.company_address, 
+                                                addressGlobal, 
                                                 formInput.company_name, 
                                                 formInput.product_code,
                                                 formInput.product_name,

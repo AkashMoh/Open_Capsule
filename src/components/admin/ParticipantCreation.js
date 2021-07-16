@@ -1,10 +1,12 @@
-import { React, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, MenuItem, } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import {getAdmin, getEvent, getParticipant, createParticipant } from '../../web3/openCapsuleContract';
+
+import { AddressContext } from '../sidebar/Sidebar'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -48,6 +50,8 @@ export default function ParticipantCreation() {
     const classes = useStyles();
 
     const [formInput, setFormInput] = useState(initialValues);
+
+    const currentAddress = useContext(AddressContext)
 
     const handleFormChange = (event) => {
 
@@ -162,6 +166,7 @@ export default function ParticipantCreation() {
                             //onClick={getParticipant}
                             onClick={() => {
                                 createParticipant(
+                                    currentAddress,
                                     formInput.company_name, 
                                     formInput.wallet_address, 
                                     formInput.role,

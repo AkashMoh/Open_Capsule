@@ -15,9 +15,9 @@ import { postHistory } from '../services/trackingService'
 }) */
 
 //Run once at app start or on reload
-var currentAddress = walletFinder();
+//var currentAddress = walletFinder();
 
-let isAdminis = currentAddress === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' ? true : false;
+//let isAdminis = currentAddress === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' ? true : false;
 
 const web3 = new Web3(Web3.givenProvider);
 //console.log(web3)
@@ -78,7 +78,7 @@ const getParticipant = async(addresss) => {
 }
 
 //Create participant function
-const createParticipant = async(companyName, walletAdress, role, phone, email, address, country, state) => {
+const createParticipant = async(currentAddress, companyName, walletAdress, role, phone, email, address, country, state) => {
     //const currentAccounts = await window.web3.eth.getAccounts();
     //const currentAddress = currentAccounts[0];
 
@@ -102,15 +102,15 @@ const createParticipant = async(companyName, walletAdress, role, phone, email, a
 }
 
 //Create product
-const createProduct = async(companyAddress, companyName, productCode, productName, price, unitStart, unitEnd) => {
-    const hashDetails = await(hashGenerator([companyAddress, companyName, productCode, productName, price, unitStart, unitEnd]));
-    console.log(hashDetails)
+const createProduct = async(currentAddress, companyName, productCode, productName, price, unitStart, unitEnd) => {
+    const hashDetails = await(hashGenerator([currentAddress, companyName, productCode, productName, price, unitStart, unitEnd]));
+    //console.log(hashDetails)
 
     try{
         openCapsuleContract.methods.createProduct(productCode, productName, price, unitStart, unitEnd, hashDetails).send({
             from: currentAddress,
         }, (err, res) => {
-            postProducts(companyAddress, companyName, productCode, productName, price, unitStart, unitEnd, hashDetails)
+            postProducts(currentAddress, companyName, productCode, productName, price, unitStart, unitEnd, hashDetails)
             postHistory(productName, productCode, companyName, unitStart, unitEnd)
             console.log(res);
             return(res);
@@ -118,8 +118,8 @@ const createProduct = async(companyAddress, companyName, productCode, productNam
     }
     catch(err){
         //console.log(err.code)
-        alert(err.message)
+        alert("From createProuct : " + err.message)
     }
 }
 
-export { getAdmin, getEvent, getParticipant, createParticipant, createProduct, isAdminis };
+export { getAdmin, getEvent, getParticipant, createParticipant, createProduct };

@@ -1,13 +1,13 @@
-import React,{ useState, useEffect } from 'react'
+import React,{ useState, useEffect, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
 import { fetchAllProducts } from '../../services/productService';
 import PurchaseForm from './PurchaseForm'
-import { walletFinder } from '../../web3/walletFinder'
-
+import { AddressContext } from '../sidebar/Sidebar'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,21 +36,21 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-let currentAddress = walletFinder()
-
 export default function CardMarketProducts() {
   const classes = useStyles();
-  const [products, setProducts] = useState([]);
+  const [ products, setProducts ] = useState([]);
+  const addressGlobal = useContext(AddressContext)
 
-  useEffect(async() => {
-    let currentAddress = await walletFinder()
-    fetchAllProducts(currentAddress).then(result => {
-      console.log("marketData"+result)
-      //console.log(props.currentAddress)
-      setProducts(result)
-      }
-    ) 
-  },[]); 
+  useEffect(() => {
+    async function getProducts() {
+      fetchAllProducts(addressGlobal).then(result => {
+        //console.log("marketData"+result)
+        setProducts(result)
+        }
+      ) 
+    }
+    getProducts()
+  },[addressGlobal]); 
 
   return(
       <React.Fragment>

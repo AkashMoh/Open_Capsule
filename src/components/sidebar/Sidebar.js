@@ -1,10 +1,10 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, createContext } from 'react';
 import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
-import { Badge, IconButton } from '@material-ui/core';
+import { Badge, IconButton, ThemeProvider } from '@material-ui/core';
 
 import Dashboard from '../dashboard/Dashboard';
 import Inventory from '../inventory/Inventory';
@@ -23,14 +23,32 @@ import {ReactComponent as ToggleArrow} from '../../icons/toggleArrow.svg';
 
 import './Sidebar.css';
 
+import { walletFinder } from '../../web3/walletFinder'
+
+export const AddressContext = createContext()
+
 function Sidebar() {
 
-    const [toggle, setToggle] = useState(true);
+    const [toggle, setToggle] = useState(true)
 
-    //window.ethereum.on('accountsChanged', function (accounts) {
-    //    currentAddress = accounts[0];
-    //    //console.log(accounts[0])
-    //})
+    const [address, setAddress] = useState()
+
+    const [addressChanged, setAddressChanged] = useState(true)
+
+    useEffect(() => {
+        async function getAddress() {
+            const walletAddress = await walletFinder()
+            setAddress(walletAddress)
+            //console.log(walletAddress)
+        }
+        getAddress()
+    }, [addressChanged])
+    
+    //the below block runs when metamask plugin changes from one ac to another (specific to metamask!!!!???)
+    window.ethereum.on('accountsChanged', function (accounts) {
+        //currentAddress = accounts[0];
+        setAddressChanged(!addressChanged)
+    })
 
     return (
         <Router>
@@ -58,7 +76,8 @@ function Sidebar() {
                         <div>
 
                             <li>
-                                {true && <NavLink className='router__links' to="/admin"><SettingsIcon />Admin</NavLink> }
+                                {/* Should only be visible if address is owner */}
+                                { address === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' && <NavLink className='router__links' to="/admin"><SettingsIcon />Admin</NavLink> }
                             </li>
                             <li>
                                 <NavLink className='router__links' to="/settings"><SettingsIcon />Settings</NavLink>
@@ -88,24 +107,27 @@ function Sidebar() {
                         </div>
                     </div>
                     <Switch>
-                        <Route exact path="/">
-                            <Dashboard />
-                        </Route>
-                        <Route path="/inventory">
-                            <Inventory />
-                        </Route>
-                        <Route path="/marketplace">
-                            <MarketPlace />
-                        </Route>
-                        <Route path="/analytics">
-                            <Analytics />
-                        </Route>
-                        <Route path="/settings">
-                            <Settings />
-                        </Route>
-                        { true && <Route path="/admin">
-                            <Admin />
-                        </Route>}
+                        <AddressContext.Provider value = {address}>
+                            <Route exact path="/">
+                                <Dashboard />
+                            </Route>
+                            <Route path="/inventory">
+                                <Inventory />
+                            </Route>
+                            <Route path="/marketplace">
+                                <MarketPlace />
+                            </Route>
+                            <Route path="/analytics">
+                                <Analytics />
+                            </Route>
+                            <Route path="/settings">
+                                <Settings />
+                            </Route>
+                            {/* Should only be visible if address is owner */}
+                            { address === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' && <Route path="/admin">
+                                <Admin />
+                            </Route>}
+                        </AddressContext.Provider>
                     </Switch>
                 </div>
         </div>
