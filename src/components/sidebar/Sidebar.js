@@ -13,13 +13,16 @@ import Analytics from '../analytics/Analytics';
 import Settings from '../settings/Settings';
 import Admin from '../admin/Admin';
 
-import {ReactComponent as DashboardIcon} from '../../icons/dashboard.svg';
-import {ReactComponent as AnalyticsIcon} from '../../icons/analytics.svg';
-import {ReactComponent as InventoryIcon} from '../../icons/inventory.svg';
-import {ReactComponent as PurchasesIcon} from '../../icons/purchases.svg';
-import {ReactComponent as SettingsIcon} from '../../icons/settings.svg';
+//import {ReactComponent as ToggleArrow} from '../../icons/toggleArrow.svg';
+import MenuIcon from '@material-ui/icons/Menu';
+import CloseIcon from '@material-ui/icons/Close';
 
-import {ReactComponent as ToggleArrow} from '../../icons/toggleArrow.svg';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import SettingsIcon from '@material-ui/icons/Settings';
+import TimelineIcon from '@material-ui/icons/Timeline';
+import StoreIcon from '@material-ui/icons/Store';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 import './Sidebar.css';
 
@@ -64,20 +67,20 @@ function Sidebar() {
                                 <NavLink exact className='router__links' to="/"><DashboardIcon />Dashboard</NavLink> 
                             </li>
                             <li>
-                                <NavLink className='router__links' to="/inventory"><InventoryIcon />Inventory</NavLink>
+                                <NavLink className='router__links' to="/inventory"><ShoppingBasketIcon />Inventory</NavLink>
                             </li>
                             <li>
-                                <NavLink className='router__links' to="/marketplace"><PurchasesIcon />MarketPlace</NavLink>
+                                <NavLink className='router__links' to="/marketplace"><StoreIcon />MarketPlace</NavLink>
                             </li>
                             <li>
-                                <NavLink className='router__links' to="/analytics"><AnalyticsIcon />Analytics</NavLink>
+                                <NavLink className='router__links' to="/analytics"><TimelineIcon />Analytics</NavLink>
                             </li>
                         </div>
                         <div>
 
                             <li>
                                 {/* Should only be visible if address is owner */}
-                                { address === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' && <NavLink className='router__links' to="/admin"><SettingsIcon />Admin</NavLink> }
+                                { address === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' && <NavLink className='router__links' to="/admin"><SupervisorAccountIcon />Admin</NavLink> }
                             </li>
                             <li>
                                 <NavLink className='router__links' to="/settings"><SettingsIcon />Settings</NavLink>
@@ -89,7 +92,19 @@ function Sidebar() {
                 <div className={toggle?'right__container__collapsed':'right__container'}>
                     <div className='navbar'>
 
-                        <ToggleArrow className={toggle?'toggleArrow__rotated':'toggleArrow'} onClick={() => setToggle(!toggle)}/>
+                        {/*<MenuIcon className={toggle?'toggleArrow__rotated':'toggleArrow'} onClick={() => setToggle(!toggle)}/>*/}
+                        {toggle ? 
+                            <IconButton >
+                                <CloseIcon  
+                                className={toggle?'toggleArrow__rotated':'toggleArrow'}
+                                onClick={ () => setToggle(!toggle) }/>
+                            </IconButton> : 
+                            <IconButton >
+                                    <MenuIcon  
+                                    className={toggle?'toggleArrow__rotated':'toggleArrow'}
+                                    onClick={ () => setToggle(!toggle)}/> 
+                            </IconButton> }
+
                         <div className='navbar__icons'>
                             <IconButton >
                                 <Badge color="secondary" variant="dot" >

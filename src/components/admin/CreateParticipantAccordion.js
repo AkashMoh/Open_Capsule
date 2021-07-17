@@ -23,7 +23,7 @@ export default function CreateParticipantAccordion() {
   const classes = useStyles();
 
   return (
-    <React.Fragment className={classes.root}>
+    <React.Fragment >
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

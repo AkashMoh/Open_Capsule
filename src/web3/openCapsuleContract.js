@@ -1,18 +1,11 @@
-import Web3 from 'web3';
-import { walletFinder } from './walletFinder.js';
-import { openCapsuleABI } from './abis/openCapsuleABI';
-import { openCapsuleMainABI } from './abis/openCapsuleMainABI';
-import { hashGenerator } from '../helpers/hashGenerator';
-import { postParticipants } from '../services/participantService';
-import { postProducts } from '../services/productService';
+import Web3 from 'web3'
+import { openCapsuleABI } from './abis/openCapsuleABI'
+import { openCapsuleMainABI } from './abis/openCapsuleMainABI'
+import { hashGenerator } from '../helpers/hashGenerator'
+import { postParticipants } from '../services/participantService'
+import { postProducts } from '../services/productService'
 import { postHistory } from '../services/trackingService'
 
-//Detect wallet address change, accountsChaged is fired by Metamask
-/*window.ethereum.on('accountsChanged', function (accounts) {
-    currentAddress = accounts[0];
-    //console.log(accounts[0])
-    isAdminis = currentAddress === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' ? true : false;
-}) */
 
 //Run once at app start or on reload
 //var currentAddress = walletFinder();
