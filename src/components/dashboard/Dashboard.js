@@ -1,5 +1,5 @@
 import { React, useContext } from 'react'
-import { Container, Paper, Grid, makeStyles, Typography, Button, Menu, MenuItem } from '@material-ui/core';
+import { Container, Paper, Grid, makeStyles, Typography } from '@material-ui/core';
 import DashCard from './DashCard'
 
 import { AddressContext } from '../sidebar/Sidebar'
@@ -15,7 +15,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     maxWidth:'20em',
-  }
+  },
+  setMargin: {
+    marginBottom: theme.spacing(2),
+}
 }));
 
 
@@ -30,7 +33,7 @@ function Dashboard() {
 
           <Paper className={classes.container} variant="outlined">
 
-          <Typography variant="h4" gutterBottom="true" >Dashboard</Typography>
+          <Typography color="textSecondary" variant="h6" className={classes.setMargin}>Dashboard</Typography>
           
           <Grid container spacing={4}>
             <DashCard />

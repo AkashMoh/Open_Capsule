@@ -1,22 +1,21 @@
-import { React, useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
-import { Badge, IconButton, ThemeProvider } from '@material-ui/core';
+import { Badge, IconButton } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import Dashboard from '../dashboard/Dashboard';
-import Inventory from '../inventory/Inventory';
-import MarketPlace from '../marketplace/MarketPlace';
-import Analytics from '../analytics/Analytics';
-import Settings from '../settings/Settings';
-import Admin from '../admin/Admin';
+//import Dashboard from '../dashboard/Dashboard';
+//import Inventory from '../inventory/Inventory';
+//import MarketPlace from '../marketplace/MarketPlace';
+//import Analytics from '../analytics/Analytics';
+//import Settings from '../settings/Settings';
+//import Admin from '../admin/Admin';
 
-//import {ReactComponent as ToggleArrow} from '../../icons/toggleArrow.svg';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
-
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -27,6 +26,13 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import './Sidebar.css';
 
 import { walletFinder } from '../../web3/walletFinder'
+
+import Dashboard from '../dashboard/Dashboard';
+const Inventory = lazy(() => import('../inventory/Inventory'))
+const MarketPlace = lazy(() => import('../marketplace/MarketPlace'))
+const Analytics = lazy(() => import('../analytics/Analytics'))
+const Settings = lazy(() => import('../settings/Settings'))
+const Admin = lazy(() => import('../admin/Admin'))
 
 export const AddressContext = createContext()
 
@@ -60,7 +66,7 @@ function Sidebar() {
                     <ul className='list__items'>
                         <div className='sidebar__top'>
                             
-                            <h4>Open Capsule</h4>
+                            <h4>{ toggle ? '💊  Open Capsule' : '💊' }</h4> 
 
                             <li>
                                 {/*NavLink has an active class automatically added to it, whereas Link does'nt */}
@@ -121,29 +127,31 @@ function Sidebar() {
                             </IconButton>
                         </div>
                     </div>
-                    <Switch>
-                        <AddressContext.Provider value = {address}>
-                            <Route exact path="/">
-                                <Dashboard />
-                            </Route>
-                            <Route path="/inventory">
-                                <Inventory />
-                            </Route>
-                            <Route path="/marketplace">
-                                <MarketPlace />
-                            </Route>
-                            <Route path="/analytics">
-                                <Analytics />
-                            </Route>
-                            <Route path="/settings">
-                                <Settings />
-                            </Route>
-                            {/* Should only be visible if address is owner */}
-                            { address === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' && <Route path="/admin">
-                                <Admin />
-                            </Route>}
-                        </AddressContext.Provider>
-                    </Switch>
+                    <Suspense fallback = {<CircularProgress className='loading'/>}>
+                        <Switch>
+                            <AddressContext.Provider value = {address}>
+                                <Route exact path="/">
+                                    <Dashboard />
+                                </Route>
+                                <Route path="/inventory">
+                                    <Inventory />
+                                </Route>
+                                <Route path="/marketplace">
+                                    <MarketPlace />
+                                </Route>
+                                <Route path="/analytics">
+                                    <Analytics />
+                                </Route>
+                                <Route path="/settings">
+                                    <Settings />
+                                </Route>
+                                {/* Should only be visible if address is owner */}
+                                { address === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' && <Route path="/admin">
+                                    <Admin />
+                                </Route>}
+                            </AddressContext.Provider>
+                        </Switch>
+                    </Suspense>
                 </div>
         </div>
     </Router>    

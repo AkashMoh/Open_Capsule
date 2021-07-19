@@ -135,3 +135,12 @@
     transition: 0.5s;
 }
 
+.logo {
+    visibility: hidden;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

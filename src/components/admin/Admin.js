@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {Suspense, lazy} from 'react'
 import CreateParticipantAccordion from './CreateParticipantAccordion';
 import { ParticipantCard } from './CardParticipant';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper'
+//import MyErrorBoundary from './MyErrorBoundary';
+
+//const ParticipantCard = lazy(() => import(('./CardParticipant')))
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -12,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(4),
     },
     setMargin: {
-        marginTop: theme.spacing(4),
+        marginTop: theme.spacing(2),
         marginBottom: theme.spacing(-2),
     }
 }));
@@ -30,7 +33,10 @@ function Admin() {
                 
                 <Typography className={classes.setMargin} color="textSecondary" variant="h6">Participants </Typography>
                 
-                <ParticipantCard />
+                {/*<Suspense fallback = {<div>Loading...</div>}>*/}
+                    <ParticipantCard />
+                {/*</Suspense>*/}
+                
             
             </Paper>
         </div>

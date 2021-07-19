@@ -1,5 +1,5 @@
-import React from 'react'
-import { Container, Paper, Grid, makeStyles, Typography, Button, Menu, MenuItem } from '@material-ui/core';
+import React, { useState } from 'react'
+import { Paper, Grid, makeStyles, Typography, Button, Menu, MenuItem } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     
@@ -7,7 +7,8 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(1),
       textAlign: 'center',
       color: theme.palette.text.primary,
-      maxWidth:'15em ',
+      maxWidth:'14em ',
+      minWidth:'12em ',
     },
     button: {
       height: '2em',
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
       color: 'rgb(76,175,80)',
       backgroundColor: 'rgb(212, 255, 214, 0.5)',
       borderRadius: '5px',
-      maxWidth: '5em'
+      maxWidth: '5em',
     },
 
 }));
@@ -25,7 +26,9 @@ function DashCard() {
 
     const classes = useStyles();
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null)
+
+    const [timePeriod, setTimeperiod] = useState('Today')
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -34,6 +37,11 @@ function DashCard() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handletimePeriod = (period) => {
+      
+      setTimeperiod(period)
+    }
 
     return (
         <>
@@ -49,7 +57,7 @@ function DashCard() {
                   <Grid item xs={5}>
                   <React.Fragment>
                     <Button className={classes.button} variant="outlined" size="small" color="primary" onClick={handleClick}>
-                      Today
+                      { timePeriod }
                     </Button>
                     <Menu
                       id="simple-menu"

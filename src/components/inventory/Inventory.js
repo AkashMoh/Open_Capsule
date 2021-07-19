@@ -1,6 +1,7 @@
-import { React, useState } from 'react'
+import { React } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 import CreateProduct from './CreateProduct'
 import ProductCard  from './CardProducts'
@@ -14,11 +15,13 @@ const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
         flexDirection: 'row',
-        marginTop: theme.spacing(2),
-        paddingBottom: theme.spacing(4),
-        paddingRight: theme.spacing(4),
         flexWrap: 'wrap',
+        marginLeft: theme.spacing(-4),
     },
+    setMargin: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(-2),
+    }
 }));
 
 function Inventory() {
@@ -29,10 +32,10 @@ function Inventory() {
         <div className={classes.root}>
             <Paper className={classes.root} variant="outlined">
                 <CreateProduct />
-            </Paper>
-            <h3>Products</h3>
-            <Paper className={classes.container} variant="outlined">
-                <ProductCard />
+                <Typography className={classes.setMargin} color="textSecondary" variant="h6">Inventory</Typography>
+                <div className={classes.container}>
+                    <ProductCard />
+                </div>
             </Paper>
         </div>
     )
