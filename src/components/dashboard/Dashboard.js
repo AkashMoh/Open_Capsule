@@ -1,6 +1,8 @@
 import { React, useContext } from 'react'
 import { Container, Paper, Grid, makeStyles, Typography } from '@material-ui/core';
 import DashCard from './DashCard'
+import Recent from './Recent'
+import Piechart from './Piechart'
 
 import { AddressContext } from '../sidebar/Sidebar'
 
@@ -18,7 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
   setMargin: {
     marginBottom: theme.spacing(2),
-}
+  },
+  pieContainer: {
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+  }
 }));
 
 
@@ -41,10 +47,15 @@ function Dashboard() {
             <DashCard />
             <DashCard />
             
-            <Grid item xs={4}>
-              <Paper className={classes.piechart} >
-                
+            <Grid item xs={12} md={4}>
+              <Paper variant="outlined" >
+                <Typography color="textSecondary" variant="subtitle2" className={classes.pieContainer}>Inventory Status</Typography>
+                <Piechart />
               </Paper>
+            </Grid>
+
+            <Grid item xs={12} md={8}>
+              <Recent />
             </Grid>
 
           </Grid>

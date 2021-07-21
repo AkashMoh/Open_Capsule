@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useContext } from 'react'
+import React,{ useState, useEffect, useContext, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -36,19 +36,20 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function CardMarketProducts() {
+function CardMarketProducts() {
   const classes = useStyles();
   const [ products, setProducts ] = useState([]);
   const addressGlobal = useContext(AddressContext)
 
+  const getProducts = useCallback(async() => {
+    fetchAllProducts(addressGlobal).then(result => {
+      //console.log("marketData"+result)
+      setProducts(result)
+      }
+    ) 
+  })
+
   useEffect(() => {
-    async function getProducts() {
-      fetchAllProducts(addressGlobal).then(result => {
-        //console.log("marketData"+result)
-        setProducts(result)
-        }
-      ) 
-    }
     getProducts()
   },[addressGlobal]); 
 
@@ -91,4 +92,6 @@ export default function CardMarketProducts() {
       </React.Fragment>
   )  
 }
+
+export default React.memo(CardMarketProducts)
 
