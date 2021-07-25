@@ -1,8 +1,10 @@
-import { React, useContext } from 'react'
+import { React, useState, useContext, useEffect } from 'react'
 import { Container, Paper, Grid, makeStyles, Typography } from '@material-ui/core';
 import DashCard from './DashCard'
 import Recent from './Recent'
 import Piechart from './Piechart'
+import { fetchDashboard } from '../../services/dashboardService'
+
 
 import { AddressContext } from '../sidebar/Sidebar'
 
@@ -28,10 +30,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
+
 function Dashboard() {
     const classes = useStyles();
 
     const addressGlobal = useContext(AddressContext)
+
+    //const dashboardData = useContext(DashboardContext)
+    //console.log(dashboardData)
+
+    const [dashBoardData, setDashBoardData] = useState(null)
+
+    //get dashboard data
+    useEffect(() => {
+      async function getDashboardData() {
+          await fetchDashboard(addressGlobal).then(result => {
+              
+                  setDashBoardData(result)
+              }
+          ) 
+      }
+      getDashboardData()
+      //console.log(dashBoardData)
+      
+    }, [addressGlobal])
 
     return (
       
@@ -42,10 +65,10 @@ function Dashboard() {
           <Typography color="textSecondary" variant="h6" className={classes.setMargin}>Dashboard</Typography>
           
           <Grid container spacing={4}>
-            <DashCard />
-            <DashCard />
-            <DashCard />
-            <DashCard />
+            {dashBoardData && <DashCard name={'Sales'} dashBoardData={dashBoardData.sales}/>}
+            {dashBoardData && <DashCard name={'Expense'} dashBoardData={dashBoardData.expense}/>}
+            {dashBoardData && <DashCard name={'Orders'} dashBoardData={dashBoardData.orders}/>}
+            {dashBoardData && <DashCard name={'Returns'} dashBoardData={dashBoardData.returns}/>}
             
             <Grid item xs={12} md={4}>
               <Paper variant="outlined" >

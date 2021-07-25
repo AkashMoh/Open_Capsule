@@ -38,7 +38,7 @@ export default function DenseTable() {
             <TableCell align="right">Code</TableCell>
             <TableCell align="right">Price&nbsp;($)</TableCell>
             <TableCell align="right">Units</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell align="right">Total&nbsp;($)</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

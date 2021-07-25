@@ -2,9 +2,9 @@ import axios from  'axios'
 
 const fetchProducts = async(address) => {
     try {
-        console.log("ProductService", address)
+        //console.log("ProductService", address)
         const response = await axios.get('https://opencaps-backend.herokuapp.com/products', {params: {address: address}});
-        console.log("Response", response);
+        //console.log("Response", response);
         return response.data;
     } catch(error) {
         console.error(error);
@@ -15,7 +15,7 @@ const fetchAllProducts = async(address) => {
     try {
         //console.log("ProductService", address)
         const response = await axios.get('https://opencaps-backend.herokuapp.com/products/allproducts', {params: {address: address}});
-        console.log("Response", response);
+        //console.log("Response", response);
         return response.data;
     } catch(error) {
         console.error(error);

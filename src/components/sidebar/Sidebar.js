@@ -1,19 +1,10 @@
 import React, { useState, useEffect, createContext, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 
-import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import { Badge, IconButton } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-//import Dashboard from '../dashboard/Dashboard';
-//import Inventory from '../inventory/Inventory';
-//import MarketPlace from '../marketplace/MarketPlace';
-//import Analytics from '../analytics/Analytics';
-//import Settings from '../settings/Settings';
-//import Admin from '../admin/Admin';
-
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -25,7 +16,11 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 import './Sidebar.css';
 
+
 import { walletFinder } from '../../web3/walletFinder'
+import { fetchAllProducts } from '../../services/productService';
+import { fetchProducts } from '../../services/productService';
+import { fetchDashboard } from '../../services/dashboardService'
 
 import Dashboard from '../dashboard/Dashboard';
 const Inventory = lazy(() => import('../inventory/Inventory'))
@@ -35,6 +30,9 @@ const Settings = lazy(() => import('../settings/Settings'))
 const Admin = lazy(() => import('../admin/Admin'))
 
 export const AddressContext = createContext()
+export const InventoryContext = createContext()
+export const MarketContext = createContext()
+//export const DashboardContext = createContext()
 
 function Sidebar() {
 
@@ -44,15 +42,53 @@ function Sidebar() {
 
     const [addressChanged, setAddressChanged] = useState(true)
 
+    const [inventory, setInventory] = useState([])
+
+    const [marketData, setMarketData] = useState([])
+
+    //const [dashBoardData, setDashBoardData] = useState({})
+
+    //get address
     useEffect(() => {
+        let mounted = true
         async function getAddress() {
             const walletAddress = await walletFinder()
-            setAddress(walletAddress)
+            if(mounted)
+                setAddress(walletAddress)
             //console.log(walletAddress)
         }
         getAddress()
+        return () => {mounted = false}
     }, [addressChanged])
+
+    //get inventory
+    useEffect(() => {
+        let mounted = true
+        async function getInventory() {
+            fetchProducts(address).then(result => {
+                if(mounted)
+                    setInventory(result)
+                }
+            ) 
+        }
+        getInventory()
+        return () => {mounted = false}
+    }, [address])
     
+    //get market data
+    useEffect(() => {
+        let mounted = true
+        async function getMarketData() {
+            fetchAllProducts(address).then(result => {
+                if(mounted)
+                    setMarketData(result)
+                }
+            ) 
+        }
+        getMarketData()
+        return () => {mounted = false}
+    }, [address])
+
     //the below block runs when metamask plugin changes from one ac to another (specific to metamask!!!!???)
     window.ethereum.on('accountsChanged', function (accounts) {
         //currentAddress = accounts[0];
@@ -100,26 +136,21 @@ function Sidebar() {
 
                         {/*<MenuIcon className={toggle?'toggleArrow__rotated':'toggleArrow'} onClick={() => setToggle(!toggle)}/>*/}
                         {toggle ? 
-                            <IconButton >
+                            <IconButton onClick={ () => setToggle(!toggle) }>
                                 <CloseIcon  
                                 className={toggle?'toggleArrow__rotated':'toggleArrow'}
-                                onClick={ () => setToggle(!toggle) }/>
+                                />
                             </IconButton> : 
-                            <IconButton >
+                            <IconButton onClick={ () => setToggle(!toggle)}>
                                     <MenuIcon  
                                     className={toggle?'toggleArrow__rotated':'toggleArrow'}
-                                    onClick={ () => setToggle(!toggle)}/> 
+                                    /> 
                             </IconButton> }
 
                         <div className='navbar__icons'>
                             <IconButton >
                                 <Badge color="secondary" variant="dot" >
                                     <NotificationsRoundedIcon />
-                                </Badge>
-                            </IconButton>
-                            <IconButton>
-                                <Badge color="secondary" variant="dot" >
-                                    <ShoppingCartRoundedIcon />
                                 </Badge>
                             </IconButton>
                             <IconButton>
@@ -130,15 +161,21 @@ function Sidebar() {
                     <Suspense fallback = {<CircularProgress className='loading'/>}>
                         <Switch>
                             <AddressContext.Provider value = {address}>
-                                <Route exact path="/">
-                                    <Dashboard />
-                                </Route>
-                                <Route path="/inventory">
-                                    <Inventory />
-                                </Route>
-                                <Route path="/marketplace">
-                                    <MarketPlace />
-                                </Route>
+                                {/*<DashboardContext.Provider value = {dashBoardData}>*/}
+                                    <Route exact path="/">
+                                        <Dashboard />
+                                    </Route>
+                                {/*</DashboardContext.Provider>*/}
+                                <InventoryContext.Provider value = {inventory}>
+                                    <Route path="/inventory">
+                                        <Inventory />
+                                    </Route>
+                                </InventoryContext.Provider>
+                                <MarketContext.Provider value = {marketData}>
+                                    <Route path="/marketplace">
+                                        <MarketPlace />
+                                    </Route>
+                                </MarketContext.Provider>
                                 <Route path="/analytics">
                                     <Analytics />
                                 </Route>

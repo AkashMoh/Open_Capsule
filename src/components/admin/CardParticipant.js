@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     marginTop: theme.spacing(4),
+    maxWidth: '38em'
   },
   detailContainer: {
     display: 'flex',

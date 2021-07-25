@@ -1,21 +1,14 @@
 import Web3 from 'web3'
-import { openCapsuleABI } from './abis/openCapsuleABI'
+//import { openCapsuleABI } from './abis/openCapsuleABI'
 import { openCapsuleMainABI } from './abis/openCapsuleMainABI'
 import { hashGenerator } from '../helpers/hashGenerator'
 import { postParticipants } from '../services/participantService'
 import { postProducts } from '../services/productService'
 import { postHistory } from '../services/trackingService'
 
-
-//Run once at app start or on reload
-//var currentAddress = walletFinder();
-
-//let isAdminis = currentAddress === '0xc50E782E195a864A7f1248a28DD3554cC53AB440' ? true : false;
-
 const web3 = new Web3(Web3.givenProvider);
-//console.log(web3)
 
-const contractAddr = '0x844198a75f1c1fef943f12ca6041e59063a435fc';
+//const contractAddr = '0x844198a75f1c1fef943f12ca6041e59063a435fc';
 const contractAddr2 = '0xeaf82f69c58189de98efe5b2aeb0ba8c688e72d8';
 const openCapsuleContract = new web3.eth.Contract(openCapsuleMainABI, contractAddr2);
 
@@ -72,8 +65,6 @@ const getParticipant = async(addresss) => {
 
 //Create participant function
 const createParticipant = async(currentAddress, companyName, walletAdress, role, phone, email, address, country, state) => {
-    //const currentAccounts = await window.web3.eth.getAccounts();
-    //const currentAddress = currentAccounts[0];
 
     const hashDetails = await(hashGenerator([phone, email, address, country, state]));
 

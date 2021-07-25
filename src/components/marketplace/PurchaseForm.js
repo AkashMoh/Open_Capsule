@@ -51,7 +51,6 @@ export default function PurchaseForm(props) {
         <div className={classes.newUnit}>
             <TextField className={classes.xtraMargin}
             label="Quantity"
-            id="outlined-size-small"
             value={formInput.quantity}
             onChange={handleFormChange}
             name="quantity"

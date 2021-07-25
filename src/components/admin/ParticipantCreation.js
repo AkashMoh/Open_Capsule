@@ -4,7 +4,8 @@ import { Grid, MenuItem, } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import {getAdmin, getEvent, getParticipant, createParticipant } from '../../web3/openCapsuleContract';
+import { createParticipant } from '../../web3/openCapsuleContract';
+import { createDashboard } from '../../services/dashboardService';
 
 import { AddressContext } from '../sidebar/Sidebar'
 
@@ -64,6 +65,20 @@ export default function ParticipantCreation() {
         //console.log(formInput);
         setFormInput(initialValues);
     };
+
+    const handleParticipantBirth = () => {
+        createParticipant(
+            currentAddress,
+            formInput.company_name, 
+            formInput.wallet_address, 
+            formInput.role,
+            formInput.phone,
+            formInput.email, 
+            formInput.address, 
+            formInput.country, 
+            formInput.state, );
+        createDashboard(formInput.wallet_address)
+    }
 
   return (
 
@@ -164,19 +179,7 @@ export default function ParticipantCreation() {
                             color="primary" 
                             className={classes.margin}
                             //onClick={getParticipant}
-                            onClick={() => {
-                                createParticipant(
-                                    currentAddress,
-                                    formInput.company_name, 
-                                    formInput.wallet_address, 
-                                    formInput.role,
-                                    formInput.phone,
-                                    formInput.email, 
-                                    formInput.address, 
-                                    formInput.country, 
-                                    formInput.state, )
-                                }
-                            }
+                            onClick={handleParticipantBirth}
                             >
                         Create
                         </Button>

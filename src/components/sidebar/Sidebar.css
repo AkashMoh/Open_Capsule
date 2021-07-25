@@ -17,6 +17,7 @@
     justify-content: left;
     transition: 0.5s;
     overflow: hidden;
+    z-index: 11;
 }
 
 .sidebar__container__collapsed {
@@ -28,6 +29,7 @@
     justify-content: left;
     transition: 0.5s;
     overflow: hidden;
+    z-index: 11;
 }
 
 .list__items {
@@ -113,6 +115,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    z-index: 10;
     align-items: center;
     height: 3.5em;
     padding-right: 0.7em;

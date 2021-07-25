@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useContext } from 'react'
+import React,{ useContext } from 'react'
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -8,9 +8,7 @@ import Button from '@material-ui/core/Button';
 //import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { fetchProducts } from '../../services/productService';
-
-import { AddressContext } from '../sidebar/Sidebar'
+import { InventoryContext } from '../sidebar/Sidebar'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,23 +50,11 @@ const useStyles = makeStyles((theme) => ({
 function ProductCard() {
   
   const classes = useStyles();
-  const [products, setProducts] = useState([]);
-  const addressGlobal = useContext(AddressContext)
-
-  useEffect(() => {
-    async function getProducts() {
-      fetchProducts(addressGlobal).then(result => {
-        console.log(result)
-        setProducts(result)
-        }
-      )
-    }
-    getProducts()
-  },[addressGlobal]);
+  const inventoryData = useContext(InventoryContext)
 
   return(
     <React.Fragment>
-        {products? products.map(prod => {
+        {inventoryData? inventoryData.map(prod => {
             return <div key={prod._id}>
               <Card className={classes.root} variant="outlined">
           

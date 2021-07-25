@@ -22,26 +22,40 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function DashCard() {
+function DashCard({name, dashBoardData}) {
 
     const classes = useStyles();
 
     const [anchorEl, setAnchorEl] = useState(null)
 
-    const [timePeriod, setTimeperiod] = useState('Today')
+    const [selectedIndex, setSelectedIndex] = useState(0);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuItemClick = (event, index) => {
+      setSelectedIndex(index);
+      setAnchorEl(null);
     };
 
     const handleClose = () => {
         setAnchorEl(null);
     };
 
-    const handletimePeriod = (period) => {
-      
-      setTimeperiod(period)
-    }
+    const options = [
+      'Today',
+      'Month',
+      'Year',
+    ]
+
+    const subOptions = [
+      'day',
+      'month',
+      'year',
+    ]
+
+    const value = ['today','month','year']
 
     return (
         <>
@@ -49,15 +63,15 @@ function DashCard() {
               <Paper className={classes.paper} variant="outlined">
                 <Grid container >
                   <Grid item xs={5}>
-                    <Typography variant="h6" gutterBottom="true">
-                      Sales
+                    <Typography variant="h6" gutterBottom={true} color="textSecondary">
+                      { name }
                     </Typography>
                   </Grid>
                   <Grid item xs={2}></Grid>
                   <Grid item xs={5}>
                   <React.Fragment>
                     <Button className={classes.button} variant="outlined" size="small" color="primary" onClick={handleClick}>
-                      { timePeriod }
+                      { options[selectedIndex] }
                     </Button>
                     <Menu
                       id="simple-menu"
@@ -66,25 +80,31 @@ function DashCard() {
                       open={Boolean(anchorEl)}
                       onClose={handleClose}
                     >
-                      <MenuItem onClick={handleClose}>Today</MenuItem>
-                      <MenuItem onClick={handleClose}>Month</MenuItem>
-                      <MenuItem onClick={handleClose}>Year</MenuItem>
+                      {options.map((option, index) => (
+                        <MenuItem
+                          key={option}
+                          selected={index === selectedIndex}
+                          onClick={(event) => handleMenuItemClick(event, index)}
+                        >
+                          {option}
+                        </MenuItem>
+                      ))}
                     </Menu>
                   </React.Fragment>
                   </Grid>
                   <Grid item xs={12}>
-                  <Typography variant="h4" gutterBottom="true">
-                    $72,187
+                  <Typography variant="h4" gutterBottom={true} noWrap={true}>
+                    ${dashBoardData[options[selectedIndex].toLowerCase()]}
                   </Typography>
                   </Grid>
                   <Grid item xs={4}>
-                  <Typography className={classes.typography} variant="body2" gutterBottom="true" color="textPrimary">
+                  <Typography className={classes.typography} variant="body2" gutterBottom={true} color="textSecondary">
                     +120.1 %
                   </Typography>
                   </Grid>
                   <Grid item xs={8}>
                     <Typography variant="caption" display="block" color='textSecondary'>
-                      Since last week 
+                      Since last {subOptions[selectedIndex]}
                     </Typography>
                   </Grid>
                 </Grid>

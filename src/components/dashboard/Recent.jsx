@@ -1,10 +1,11 @@
 import React from 'react';
+import { useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
-
+import ReactSwipeableViews from 'react-swipeable-views';
 import Table from './Table'
 
 function TabPanel(props) {
@@ -40,11 +41,18 @@ function a11yProps(index) {
   };
 }
 
+
 export default function Recent() {
   const [value, setValue] = React.useState(0);
 
+  const theme  = useTheme()
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const handleChangeIndex = (index) => {
+    setValue(index);
   };
 
   return (
@@ -60,12 +68,18 @@ export default function Recent() {
         <Tab label="Recent Sales" {...a11yProps(0)}/>
         <Tab label="Recent Purchases" {...a11yProps(1)}/>
       </Tabs>
+      <ReactSwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={value}
+        onChangeIndex={handleChangeIndex}
+      >
       <TabPanel value={value} index={0}>
         <Table />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Table />
       </TabPanel>
+      </ReactSwipeableViews>
     </Paper>
   );
 }
