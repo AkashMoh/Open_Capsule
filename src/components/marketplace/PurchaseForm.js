@@ -2,10 +2,12 @@ import { React, useState, useContext } from 'react'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+
 import { unitSorter } from '../../helpers/unitSorter'
-import { updateProducts } from '../../services/productService'
 import { getParticipant } from '../../web3/openCapsuleContract'
 import { createProduct } from '../../web3/openCapsuleContract'
+import { updateProducts } from '../../services/productService'
+import { updateInventory, editInventory } from '../../services/dashboardService';
 
 import { AddressContext } from '../sidebar/Sidebar'
 
@@ -28,9 +30,11 @@ const initialValues = {
 const handleTransaction = async(quantityNeededBuyer, props, addressOfBuyer) => {
     let {newUnitEndofSeller, unitStartBuyer, unitEndBuyer} = await unitSorter(Number(quantityNeededBuyer), props.unit_end)
     let buyerDetails = await getParticipant(addressOfBuyer)
-    createProduct(addressOfBuyer, buyerDetails.companyName, props.product_code, props.product_name, props.price, unitStartBuyer, unitEndBuyer, () => {
+    createProduct(addressOfBuyer, buyerDetails.companyName, props.product_code, props.product_name, props.price, unitStartBuyer, unitEndBuyer);
+        //console.log(addressOfBuyer, props.product_name, quantityNeededBuyer, props.company_address, newUnitEndofSeller)
         updateProducts(props._id, newUnitEndofSeller)
-    })
+        updateInventory(addressOfBuyer, props.product_name, quantityNeededBuyer)
+        editInventory(props.company_address, props.product_name, newUnitEndofSeller)
 }
 
 export default function PurchaseForm(props) {

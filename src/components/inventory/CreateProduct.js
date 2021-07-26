@@ -8,8 +8,9 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import { Grid } from '@material-ui/core';
-import { createProduct } from '../../web3/openCapsuleContract';
 
+import { createProduct } from '../../web3/openCapsuleContract';
+import { updateInventory } from '../../services/dashboardService';
 import { AddressContext } from '../sidebar/Sidebar'
 
 const useStyles = makeStyles((theme) => ({
@@ -67,9 +68,20 @@ export default function CreateProduct() {
     };
 
     const resetForm = () => {
-        //console.log(formInput);
         setFormInput(initialValues);
     };
+
+    const handleProductCreation = () => {
+        createProduct(
+            addressGlobal, 
+            formInput.company_name, 
+            formInput.product_code,
+            formInput.product_name,
+            formInput.price, 
+            formInput.unit_start, 
+            formInput.unit_end, );
+        updateInventory(addressGlobal, formInput.product_name, formInput.unit_end);
+        }
 
     return (
         <div>
@@ -169,18 +181,7 @@ export default function CreateProduct() {
                                         color="primary" 
                                         className={classes.margin}
                                         //onClick={getParticipant}
-                                        onClick={() => {
-                                            console.log(addressGlobal)
-                                            createProduct(
-                                                addressGlobal, 
-                                                formInput.company_name, 
-                                                formInput.product_code,
-                                                formInput.product_name,
-                                                formInput.price, 
-                                                formInput.unit_start, 
-                                                formInput.unit_end, )
-                                            }
-                                        }
+                                        onClick={handleProductCreation}
                                         >
                                     Create
                                     </Button>

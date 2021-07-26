@@ -5,7 +5,6 @@ import Recent from './Recent'
 import Piechart from './Piechart'
 import { fetchDashboard } from '../../services/dashboardService'
 
-
 import { AddressContext } from '../sidebar/Sidebar'
 
 const useStyles = makeStyles((theme) => ({
@@ -37,23 +36,17 @@ function Dashboard() {
 
     const addressGlobal = useContext(AddressContext)
 
-    //const dashboardData = useContext(DashboardContext)
-    //console.log(dashboardData)
-
     const [dashBoardData, setDashBoardData] = useState(null)
 
     //get dashboard data
     useEffect(() => {
       async function getDashboardData() {
           await fetchDashboard(addressGlobal).then(result => {
-              
                   setDashBoardData(result)
               }
           ) 
       }
       getDashboardData()
-      //console.log(dashBoardData)
-      
     }, [addressGlobal])
 
     return (
@@ -73,7 +66,7 @@ function Dashboard() {
             <Grid item xs={12} md={4}>
               <Paper variant="outlined" >
                 <Typography color="textSecondary" variant="subtitle2" className={classes.pieContainer}>Inventory Status</Typography>
-                <Piechart />
+                {dashBoardData && <Piechart chartData={dashBoardData.inventory}/>}
               </Paper>
             </Grid>
 

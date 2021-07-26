@@ -21,4 +21,28 @@ const createDashboard = async(wallet_address) => {
     }
 }
 
-export { fetchDashboard, createDashboard } 
+const updateInventory = async(wallet_address, product_name, product_quantity) => {
+    try {
+        axios.post('https://opencaps-backend.herokuapp.com/dashboard/updateInventory/', {
+            address: wallet_address,
+            name: product_name,
+            quantity: product_quantity
+        })
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+const editInventory = async(wallet_address, product_name, product_quantity) => {
+    try {
+        axios.post('https://opencaps-backend.herokuapp.com/dashboard/editInventory/', {
+            address: wallet_address,
+            name: product_name,
+            quantity: product_quantity
+        })
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+export { fetchDashboard, createDashboard, updateInventory, editInventory } 
