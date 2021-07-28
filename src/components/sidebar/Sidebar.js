@@ -47,14 +47,17 @@ function Sidebar() {
     const [marketData, setMarketData] = useState([])
 
     //const [dashBoardData, setDashBoardData] = useState({})
-
+    setAddressChanged(true)
     //get address
     useEffect(() => {
         let mounted = true
         async function getAddress() {
             const walletAddress = await walletFinder()
-            if(mounted)
+            if(mounted && walletAddress)
                 setAddress(walletAddress)
+            else{
+                setAddress('0x8CF6Eaf4d117D2dbe5C70cF351B6E65762Afa341')
+            }
             //console.log(walletAddress)
         }
         getAddress()
@@ -90,10 +93,10 @@ function Sidebar() {
     }, [address])
 
     //the below block runs when metamask plugin changes from one ac to another (specific to metamask!!!!???)
-    window.ethereum.on('accountsChanged', function (accounts) {
+    //window.ethereum.on('accountsChanged', function (accounts) {
         //currentAddress = accounts[0];
-        setAddressChanged(!addressChanged)
-    })
+    //    setAddressChanged(!addressChanged)
+    //})
 
     return (
         <Router>

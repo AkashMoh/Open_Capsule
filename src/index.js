@@ -12,10 +12,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-window.ethereum.on('accountsChanged', function (accounts) {
-  walletFinder();
-})
-
 walletFinder();
 
 
