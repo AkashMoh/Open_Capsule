@@ -20,7 +20,7 @@ import './Sidebar.css';
 import { walletFinder } from '../../web3/walletFinder'
 import { fetchAllProducts } from '../../services/productService';
 import { fetchProducts } from '../../services/productService';
-import { fetchDashboard } from '../../services/dashboardService'
+//import { fetchDashboard } from '../../services/dashboardService'
 
 import Dashboard from '../dashboard/Dashboard';
 const Inventory = lazy(() => import('../inventory/Inventory'))

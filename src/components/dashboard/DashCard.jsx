@@ -55,8 +55,6 @@ function DashCard({name, dashBoardData}) {
       'year',
     ]
 
-    const value = ['today','month','year']
-
     return (
         <>
           <Grid item xs={6} md={3}>

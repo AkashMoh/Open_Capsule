@@ -1,4 +1,4 @@
-import React, {Suspense, lazy} from 'react'
+import React from 'react'
 import CreateParticipantAccordion from './CreateParticipantAccordion';
 import { ParticipantCard } from './CardParticipant';
 import { makeStyles } from '@material-ui/core/styles';
