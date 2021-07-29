@@ -40,14 +40,14 @@ function Sidebar() {
 
     const [address, setAddress] = useState()
 
-    const [addressChanged, setAddressChanged] = useState(true)
+    //const [addressChanged, setAddressChanged] = useState(true)
 
     const [inventory, setInventory] = useState([])
 
     const [marketData, setMarketData] = useState([])
 
     //const [dashBoardData, setDashBoardData] = useState({})
-    setAddressChanged(true)
+    //setAddressChanged(true)
     //get address
     useEffect(() => {
         let mounted = true
@@ -62,7 +62,7 @@ function Sidebar() {
         }
         getAddress()
         return () => {mounted = false}
-    }, [addressChanged])
+    }, [])
 
     //get inventory
     useEffect(() => {

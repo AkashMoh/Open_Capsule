@@ -1,2 +1,0 @@
-(this.webpackJsonpopen_capsule=this.webpackJsonpopen_capsule||[]).push([[9],{1009:function(e,n,t){"use strict";t.r(n);var c=t(3),s=(t(0),t(942)),i=Object(s.a)((function(e){return{root:{display:"flex",flexDirection:"column",padding:e.spacing(4)}}}));n.default=function(){var e=i();return Object(c.jsx)("div",{className:e.root,children:Object(c.jsx)("h3",{children:"Settings"})})}}}]);
-//# sourceMappingURL=9.ee7dda49.chunk.js.map
